@@ -40,3 +40,14 @@ test('belongs to user', function (): void {
         ->toBeInstanceOf(User::class)
         ->id->toBe($user->id);
 });
+
+test('belongs to many users', function (): void {
+    $dealership = Dealership::factory()->create();
+    $users = User::factory(3)->create();
+
+    $dealership->users()->attach($users->pluck('id'));
+
+    expect($dealership->users)
+        ->toHaveCount(3)
+        ->each->toBeInstanceOf(User::class);
+});

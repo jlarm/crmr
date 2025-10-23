@@ -21,9 +21,13 @@ test('to array', function (): void {
 
 test('has many dealerships', function (): void {
     $user = User::factory()->create();
-    $dealerships = Dealership::factory(3)->create(['user_id' => $user->id]);
+    $dealership1 = Dealership::factory()->create();
+    $dealership2 = Dealership::factory()->create();
+
+    $user->dealerships()->attach($dealership1);
+    $user->dealerships()->attach($dealership2);
 
     expect($user->dealerships)
-        ->toHaveCount(3)
+        ->toHaveCount(2)
         ->each->toBeInstanceOf(Dealership::class);
 });
