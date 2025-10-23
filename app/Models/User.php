@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -58,5 +59,13 @@ final class User extends Authenticatable implements MustVerifyEmail
     public function dealerships(): BelongsToMany
     {
         return $this->belongsToMany(Dealership::class);
+    }
+
+    /**
+     * @return HasMany<Store, $this>
+     */
+    public function stores(): HasMany
+    {
+        return $this->hasMany(Store::class);
     }
 }

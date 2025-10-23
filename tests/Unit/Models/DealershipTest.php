@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Dealership;
+use App\Models\Store;
 use App\Models\User;
 
 test('to array', function (): void {
@@ -50,4 +51,14 @@ test('belongs to many users', function (): void {
     expect($dealership->users)
         ->toHaveCount(3)
         ->each->toBeInstanceOf(User::class);
+});
+
+test('has many stores', function (): void {
+    $dealership = Dealership::factory()->create();
+    Store::factory()->create(['dealership_id' => $dealership->id]);
+    Store::factory()->create(['dealership_id' => $dealership->id]);
+
+    expect($dealership->stores)
+        ->toHaveCount(2)
+        ->each->toBeInstanceOf(Store::class);
 });
