@@ -19,5 +19,9 @@ final class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => Role::ADMIN,
         ]);
+
+        $this->call([
+            CompanySeeder::class,
+        ]);
     }
 }
