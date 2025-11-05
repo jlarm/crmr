@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Enums\Role;
 
-it('has correct vaules', function (): void {
+it('has correct values', function (): void {
     expect(Role::ADMIN->value)->toBe('admin')
         ->and(Role::CONSULTANT->value)->toBe('consultant');
 });
