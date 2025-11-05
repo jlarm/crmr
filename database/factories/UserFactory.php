@@ -49,4 +49,12 @@ final class UserFactory extends Factory
             'two_factor_confirmed_at' => null,
         ]);
     }
+
+    public function withCompanies(int $count = 1): self
+    {
+        return $this->afterCreating(function ($user) use ($count): void {
+            $companies = \App\Models\Company::factory()->count($count)->create();
+            $user->companies()->attach($companies);
+        });
+    }
 }

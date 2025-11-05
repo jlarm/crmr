@@ -104,4 +104,12 @@ final class CompanyFactory extends Factory
             'type' => Type::ASSOCIATION,
         ]);
     }
+
+    public function withUsers(int $count = 1): static
+    {
+        return $this->afterCreating(function ($company) use ($count): void {
+            $users = \App\Models\User::factory()->count($count)->create();
+            $company->users()->attach($users);
+        });
+    }
 }
